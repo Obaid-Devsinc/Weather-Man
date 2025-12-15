@@ -1,0 +1,32 @@
+plugins:
+  - rubocop-performance
+  - rubocop-rails
+  - rubocop-minitest
+
+AllCops:
+  TargetRubyVersion: 3.0
+  TargetRailsVersion: 7.0
+  Exclude:
+    - 'db/schema.rb'
+    - 'node_modules/**/*'
+    - 'vendor/bundle/**/*'
+    - 'bin/**/*'
+  NewCops: enable
+
+Layout/LineLength:
+  Max: 120
+
+Metrics/MethodLength:
+  Max: 23
+
+Metrics/BlockLength:
+  Exclude:
+    - config/**/*
+    - test/**/*
+
+Lint/AmbiguousBlockAssociation:
+  Exclude:
+    - test/**/*
+
+Style/Documentation:
+  Enabled: false
