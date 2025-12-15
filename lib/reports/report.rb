@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
 require 'csv'
-require_relative '../utils/report'
-require_relative '../utils/helpers'
+require_relative '../modules/error'
+require_relative '../modules/report'
 
+# Processes and reports weather data.
 class WeatherReport
-  include WeatherCLIUtility
-  include WeatherReportUtility
+  include WeatherErrorModule
+  include WeatherReportModule
 
   attr_reader :year, :path, :flag, :month
 
@@ -75,38 +76,3 @@ class WeatherReport
     end
   end
 end
-
-# Bonus task also implemented
-
-# def bonus_weather_insights
-#   month_num = @month.to_i
-#   month_name = Date::MONTHNAMES[month_num]
-#
-#   daily_data = []
-#
-#   CSV.foreach(@path, headers: true) do |row|
-#     date = row['GST']&.strip
-#     next if date.nil?
-#     y, m, d = date.split('-').map(&:to_i)
-#     next unless y == @year.to_i && m == month_num
-#     max_t = row['Max TemperatureC']&.to_i
-#     min_t = row['Min TemperatureC']&.to_i
-#     daily_data << {
-#       day: d.to_s.rjust(2, '0'),
-#       max: max_t,
-#       min: min_t
-#     }
-#   end
-#
-#   puts "#{month_name} #{@year}"
-#
-#   daily_data.each do |day|
-#     max_t = day[:max] || 0
-#     min_t = day[:min] || 0
-#     next unless max_t.positive? || min_t.positive?
-#     print "#{day[:day]} "
-#     print "\e[34m#{'+' * min_t}\e[0m " if min_t.positive?
-#     print "\e[31m#{'+' * max_t}\e[0m " if max_t.positive?
-#     puts "#{day[:min]}C - #{day[:max]}C"
-#   end
-# end

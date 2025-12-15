@@ -1,11 +1,14 @@
 # frozen_string_literal: true
 
-require_relative '../utils/helpers'
+require_relative '../modules/cli'
+require_relative '../modules/error'
 
+# Handles CLI input validation and setup for weather reports.
 class WeatherReportCLI
-  include WeatherCLIUtility
+  include WeatherCliModule
+  include WeatherErrorModule
 
-  YEAR_REGEX = /\A\d{4}\z/
+  YEAR_REGEX = /\A\d{4}\z/.freeze
 
   attr_reader :flag, :month, :year, :path
 

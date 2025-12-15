@@ -1,11 +1,20 @@
 # frozen_string_literal: true
 
-require_relative '../utils/helpers'
+# Provides methods for processing weather data.
+module WeatherReportModule
 
-module WeatherReportUtility
-  include WeatherCLIUtility
+  def format_date_short(date_string)
+    return 'N/A' if date_string.nil? || date_string.empty?
 
-  # _______Report utilty functions__________
+    date = Date.parse(date_string)
+    date.strftime('%b %d')
+  rescue Date::Error
+    date_string
+  end
+
+  def average_of(arr)
+    (arr.sum / arr.size).round(2)
+  end
 
   def read_weather_rows(path)
     CSV.read(path, headers: true)

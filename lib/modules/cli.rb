@@ -1,30 +1,9 @@
 # frozen_string_literal: true
 
-require_relative '../utils/helpers'
+# Provides CLI-related validation methods for paths and dates.
+module WeatherCliModule
+  DATE_REGEX = %r{\A\d{4}/\d{1,2}\z}.freeze
 
-module WeatherCLIUtility
-  DATE_REGEX = %r{\A\d{4}/\d{1,2}\z}
-
-  # _______General utilty functions__________
-  def error(message)
-    puts "Error: #{message}"
-    exit
-  end
-
-  def format_date_short(date_string)
-    return 'N/A' if date_string.nil? || date_string.empty?
-
-    date = Date.parse(date_string)
-    date.strftime('%b %d')
-  rescue Date::Error
-    date_string
-  end
-
-  def average_of(arr)
-    (arr.sum / arr.size).round(2)
-  end
-
-  # _______CLI utilty functions__________
   def validate_path(path, type)
     case type
     when 'folder'
